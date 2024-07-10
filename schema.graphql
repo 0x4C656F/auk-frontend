@@ -1,0 +1,88 @@
+type Blog {
+	content: String!
+	createdAt: LocalDateTime!
+	id: Int
+	published: Boolean!
+	title: String!
+	updatedAt: LocalDateTime!
+	userId: Int!
+}
+
+input CreateBlogDto {
+	content: String!
+	title: String!
+}
+
+input CreateUserDto {
+	email: String!
+	password: String!
+}
+
+"""
+Combined date and time (without time zone) in `yyyy-MM-dd HH:mm:ss` format.
+
+See also [`chrono::NaiveDateTime`][1] for details.
+
+[1]: https://docs.rs/chrono/latest/chrono/naive/struct.NaiveDateTime.html
+"""
+scalar LocalDateTime
+
+input LoginDto {
+	email: String!
+	password: String!
+}
+
+type MockObject {
+	field: String!
+}
+
+type Mutation {
+	protected: ProtectedMutation!
+	public: PublicMutation!
+}
+
+type ProtectedMutation {
+	createBlog(createBlogDto: CreateBlogDto!): Blog!
+	createUser(createUserDto: CreateUserDto!): User!
+	publishBlog(blogId: Int!): Boolean!
+}
+
+type ProtectedQuery {
+	blog(id: Int!): Blog!
+	blogs: [Blog!]!
+	blogsByUserId(userId: Int!): [Blog!]!
+	user(id: Int!): User!
+	users: [User!]!
+}
+
+type PublicMutation {
+	login(loginDto: LoginDto!): TokenPair!
+	register(registerDto: RegisterDto!): TokenPair!
+}
+
+type PublicQuery {
+	dummy: MockObject!
+}
+
+type Query {
+	protected: ProtectedQuery!
+	public: PublicQuery!
+}
+
+input RegisterDto {
+	email: String!
+	password: String!
+}
+
+type TokenPair {
+	accessToken: String!
+	refreshToken: String!
+}
+
+type User {
+	createdAt: LocalDateTime!
+	email: String!
+	id: Int
+	name: String!
+	password: String!
+}
