@@ -1,21 +1,21 @@
 type Blog {
-	content: String!
-	createdAt: LocalDateTime!
-	id: Int
-	published: Boolean!
-	title: String!
-	updatedAt: LocalDateTime!
-	userId: Int!
+  content: String!
+  createdAt: LocalDateTime!
+  id: Int
+  published: Boolean!
+  title: String!
+  updatedAt: LocalDateTime!
+  userId: Int!
 }
 
 input CreateBlogDto {
-	content: String!
-	title: String!
+  content: String!
+  title: String!
 }
 
 input CreateUserDto {
-	email: String!
-	password: String!
+  email: String!
+  password: String!
 }
 
 """
@@ -27,62 +27,62 @@ See also [`chrono::NaiveDateTime`][1] for details.
 """
 scalar LocalDateTime
 
-input LoginDto {
-	email: String!
-	password: String!
-}
-
 type MockObject {
-	field: String!
+  field: String!
 }
 
 type Mutation {
-	protected: ProtectedMutation!
-	public: PublicMutation!
+  protected: ProtectedMutation!
+  public: PublicMutation!
 }
 
 type ProtectedMutation {
-	createBlog(createBlogDto: CreateBlogDto!): Blog!
-	createUser(createUserDto: CreateUserDto!): User!
-	publishBlog(blogId: Int!): Boolean!
+  createBlog(createBlogDto: CreateBlogDto!): Blog!
+  createUser(createUserDto: CreateUserDto!): User!
+  publishBlog(blogId: Int!): Boolean!
 }
 
 type ProtectedQuery {
-	blog(id: Int!): Blog!
-	blogs: [Blog!]!
-	blogsByUserId(userId: Int!): [Blog!]!
-	user(id: Int!): User!
-	users: [User!]!
+  blog(id: Int!): Blog!
+  blogs: [Blog!]!
+  blogsByUserId(userId: Int!): [Blog!]!
+  user(id: Int!): User!
+  users: [User!]!
 }
 
 type PublicMutation {
-	login(loginDto: LoginDto!): TokenPair!
-	register(registerDto: RegisterDto!): TokenPair!
+  signIn(signInDto: SignInDto!): TokenPair!
+  signUp(signUpDto: SignUpDto!): TokenPair!
 }
 
 type PublicQuery {
-	dummy: MockObject!
+  dummy: MockObject!
 }
 
 type Query {
-	protected: ProtectedQuery!
-	public: PublicQuery!
+  protected: ProtectedQuery!
+  public: PublicQuery!
 }
 
-input RegisterDto {
-	email: String!
-	password: String!
+input SignInDto {
+  email: String!
+  password: String!
+}
+
+input SignUpDto {
+  email: String!
+  password: String!
 }
 
 type TokenPair {
-	accessToken: String!
-	refreshToken: String!
+  accessToken: String!
+  refreshToken: String!
 }
 
 type User {
-	createdAt: LocalDateTime!
-	email: String!
-	id: Int
-	name: String!
-	password: String!
+  createdAt: LocalDateTime!
+  email: String!
+  id: Int
+  name: String!
+  password: String!
 }
