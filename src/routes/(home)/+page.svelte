@@ -1,24 +1,36 @@
 <script lang="ts">
-	import SignUpPopup, { openPopup } from '$root/widgets/sign-up-popup';
-	import type { ActionData } from './$types';
-	export let form: ActionData;
+	import logo from '$lib/assets/auk.webp';
+	import Button from '$shared/ui/Button.svelte';
 </script>
 
-<main class="w-screen h-screen flex flex-col items-center">
-	<SignUpPopup {form} />
-	<header class=" h-20 w-full flex z-20 font-sans-serif items-center max-w-screen-2xl px-8 2xl:p-0">
-		<nav class="flex justify-between items-center w-full">
-			<section>
-				<h2 class="2xl:text-scalable-xl text-3xl">AUK-NEWS</h2>
-			</section>
-			<section class="flex gap-8 2xl:text-scalable-lg text-lg">
-				<button>Sign in</button>
-				<button
-					on:click={openPopup}
-					class="rounded-full bg-primary py-2 px-6 hover-intensify text-background"
-					>Get started</button
-				>
-			</section>
-		</nav>
-	</header>
+<main class="w-screen h-screen flex flex-col items-center justify-center max-w-screen-xl px-16">
+	<section class="flex w-full justify-between items-center">
+		<article class="flex-col flex gap-12">
+			<h1 class=" 2xl:text-7xl font-serif font-semibold">
+				<span class="text-8xl">N</span>ews, stories & campus events
+			</h1>
+			<h2 class="xl:text-2xl lg:text-xl md:text-lg text-base font-serif">
+				Your Hub for Insight and Inspiration
+			</h2>
+			<Button href="/read" class="w-fit px-8" size="lg">Start reading</Button>
+		</article>
+		<img alt="The AUK logo" src={logo} />
+	</section>
+	<footer class="fixed bottom-0 flex p-8 justify-center gap-8 w-full">
+		<a href="/">Help</a>
+		<a href="/">Status</a>
+		<a href="/">About</a>
+		<a href="/">Careers</a>
+		<a href="/">Press</a>
+		<a href="/">Blog</a>
+		<a href="/">Privacy</a>
+		<a href="/">Terms</a>
+		<a href="/">Teams</a>
+	</footer>
 </main>
+
+<style lang="postcss">
+	footer a {
+		@apply text-text/70 hover:underline transition-colors duration-300;
+	}
+</style>

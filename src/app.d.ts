@@ -9,6 +9,17 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
+		interface Session {
+			token: string;
+		}
+
+		// used to thread information between plugins
+		interface Stuff {}
+
+		// used to pass one-off configuration for a request
+		interface Metadata {
+			doTheThing?: boolean | null;
+		}
 	}
 	declare namespace svelteHTML {
 		interface HTMLAttributes<T> {
@@ -16,3 +27,7 @@ declare global {
 		}
 	}
 }
+
+// declare namespace App {
+// 	// user-specific information passed to each query
+// }

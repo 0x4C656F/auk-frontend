@@ -7,41 +7,38 @@
 	import { fade, scale } from 'svelte/transition';
 	import MaterialSymbolsLightClose from 'virtual:icons/material-symbols-light/close';
 	import type { ActionData } from '../../routes/auth/$types';
-	import { signInPopupController } from '../sign-in-popup';
-	import { signUpPopupController } from './sign-up-popup-controller.svelte';
+	import { signUpPopupController } from '../sign-up-popup';
+	import { signInPopupController } from './sign-in-popup-controller.svelte';
 
 	function togglePopups() {
-		signUpPopupController.toggle();
 		signInPopupController.toggle();
+		signUpPopupController.toggle();
 	}
-
 	let form: ActionData;
 
 	$: {
-		console.table(form);
 		if (form?.success) {
-			signUpPopupController.toggle();
-
 			invalidateAll();
+			signInPopupController.toggle();
 		}
 	}
 </script>
 
-{#if signUpPopupController.isOpen}
+{#if signInPopupController.isOpen}
 	<div transition:fade={{ duration: 300 }} class="overlay">
 		<div
 			use:clickOutside
-			on:click_outside={signUpPopupController.toggle}
+			on:click_outside={signInPopupController.toggle}
 			transition:scale={{ duration: 500, opacity: 0, start: 0.4, easing: quintOut }}
 			class="popup-container"
 		>
-			<button class="close-button" on:click={signUpPopupController.toggle}>
+			<button class="close-button" on:click={signInPopupController.toggle}>
 				<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
 			</button>
-			<h2 class="header">Join AUK-NEWS.</h2>
+			<h2 class="header">Welcome back!</h2>
 			<form
 				method="POST"
-				action="/auth?/register"
+				action="/auth?/login"
 				use:enhance={({}) => {
 					return async ({ result }) => {
 						form = updateFormData(result);
@@ -51,44 +48,39 @@
 				<section class="input-section">
 					<label for="email">Email</label>
 					<input type="email" name="email" id="email" autocomplete="email" />
-					{#if form?.target === 'email'}
-						<p>{form.message}</p>
-					{/if}
 				</section>
 				<section class="input-section">
 					<label for="password">Password</label>
 					<input type="password" name="password" id="password" autocomplete="new-password" />
-					{#if form?.target === 'password'}
-						<p>{form.message}</p>
-					{/if}
 				</section>
-				<Button type="submit" class=" mr-2 mt-2">Sign up</Button>
 				{#if form?.target === 'unknown'}
 					<p>{form.message}</p>
 				{/if}
+				<Button type="submit" class=" mr-2 mt-2">Sign in</Button>
 			</form>
+			{#if form?.success}
+				<div class="success-message-box">
+					<h2>Welcome back!</h2>
+					<p>You have successfully logged in.</p>
+				</div>
+			{/if}
 			<article class="signin-text">
-				Already have an account? <button on:click={togglePopups} class="signin-link hover-intensify"
-					>Sign in</button
+				Don't have an account yet? <button
+					on:click={togglePopups}
+					class="signin-link hover-intensify">Sign up</button
 				>
 			</article>
 		</div>
-		{#if form?.success}
-			<div class="success-message-box">
-				<h2>Welcome, {form.name}!</h2>
-				<p>You have successfully signed up.</p>
-			</div>
-		{/if}
 	</div>
 {/if}
 
-<style lang="postcss">
+<style lang="scss">
 	.overlay {
 		@apply fixed left-0 top-0 w-screen h-screen bg-opacity-90 z-50 bg-background flex items-center justify-center transition-all duration-300;
 	}
 
 	.popup-container {
-		@apply h-screen w-1/2 rounded-lg z-50 relative flex items-center justify-center gap-20 bg-background flex-col font-sans-serif transition-all duration-300 bg-background;
+		@apply h-screen w-1/2 rounded-lg z-50 relative flex items-center justify-center gap-20 flex-col bg-background font-sans-serif transition-all duration-300;
 		box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
 	}
 
@@ -102,41 +94,40 @@
 
 	form {
 		@apply flex flex-col gap-4 p-2 items-end;
-	}
 
-	form p {
-		@apply text-red-500 text-right;
+		p {
+			@apply text-red-500 text-right;
+		}
 	}
 
 	.input-section {
 		@apply flex flex-col gap-1;
-	}
 
-	.input-section input {
-		@apply p-2 bg-text/5 w-80 ring-0 hover:ring-0 rounded-md;
-	}
+		input {
+			@apply p-2 bg-text/5 w-80 ring-0 hover:ring-0 rounded-md;
+		}
 
-	.input-section label {
-		@apply ml-2 italic;
+		label {
+			@apply ml-2 italic;
+		}
 	}
-
 	.signin-text {
 		@apply text-lg;
-	}
 
-	.signin-text button {
-		@apply text-red-500;
+		button {
+			@apply text-red-500;
+		}
 	}
 
 	.success-message-box {
 		@apply absolute right-8 bottom-8 z-50 border-2 space-y-2 rounded-md bg-text/5 p-4;
-	}
 
-	.success-message-box h2 {
-		@apply text-lg font-semibold;
-	}
+		h2 {
+			@apply text-lg font-semibold;
+		}
 
-	.success-message-box p {
-		@apply text-base font-light;
+		p {
+			@apply text-base font-light;
+		}
 	}
 </style>

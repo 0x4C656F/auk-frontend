@@ -1,3 +1,3 @@
 import Button from './Button.svelte';
-
-export { Button };
+import Skeleton from './Skeleton.svelte';
+export { Button, Skeleton };

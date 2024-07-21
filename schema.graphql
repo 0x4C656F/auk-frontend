@@ -46,6 +46,8 @@ type ProtectedQuery {
   blog(id: Int!): Blog!
   blogs: [Blog!]!
   blogsByUserId(userId: Int!): [Blog!]!
+  check: Boolean!
+  me: User!
   user(id: Int!): User!
   users: [User!]!
 }

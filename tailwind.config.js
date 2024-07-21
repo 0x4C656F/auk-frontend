@@ -7,13 +7,17 @@ export default {
 			fontFamily: {
 				'sans-serif': 'dosis, Sora Variable, sans-serif',
 				serif: 'noto serif, Noto Serif Variable, serif',
-				sans: 'noto sans, Noto Sans Georgian Variable, sans'
+				sans: 'noto sans, Noto Sans Georgian Variable, sans',
+				heading: 'Playfair Display Variable, serif'
 			},
 			colors: {
 				primary: '#d01822',
 				text: '#1B0809',
-				secondary: '#f6f6f6',
-				background: '#F4EFEF'
+				'text-light': '#FBFBFE',
+				secondary: '#EFDADA',
+				background: '#FBF8ED',
+				// background: '#000000',
+				accent: '#7DCBB2'
 			},
 			fontSize: {
 				'scalable-lg': '0.9vw',

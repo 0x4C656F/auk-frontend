@@ -10,7 +10,16 @@
 </script>
 
 {#if href}
-	<a {href} {...$$restProps}><slot>Click me</slot></a>
+	<a
+		{href}
+		class:sm={size == 'sm'}
+		class:md={size == 'md'}
+		class:lg={size == 'lg'}
+		class:primary={variant == 'primary'}
+		class:secondary={variant == 'secondary'}
+		class:ghost={variant == 'ghost'}
+		{...$$restProps}><slot>Click me</slot></a
+	>
 {:else}
 	<button
 		class:sm={size == 'sm'}
@@ -33,8 +42,9 @@
 	.hover-intensify {
 		@apply opacity-90 hover:opacity-100 transition-opacity;
 	}
-	button {
-		@apply focus:outline-none rounded-full hover-intensify;
+	button,
+	a {
+		@apply focus:outline-none rounded-full hover-intensify font-sans-serif;
 	}
 	.sm {
 		@apply text-sm px-3 py-1;
@@ -46,7 +56,7 @@
 		@apply text-lg px-6 py-3;
 	}
 	.primary {
-		@apply text-background bg-primary;
+		@apply text-text-light bg-primary;
 	}
 	.secondary {
 		@apply text-primary bg-transparent;

@@ -1,6 +1,7 @@
 @import '@fontsource-variable/noto-sans-georgian';
 @import '@fontsource-variable/noto-serif';
 @import '@fontsource-variable/sora';
+@import '@fontsource-variable/playfair-display';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
