@@ -1,6 +1,6 @@
 import { setTokenCookies } from '$root/lib/helpers';
 import type { TokenPair } from '$root/lib/types';
-import { fail, type Actions } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	register: async ({ request, cookies, fetch }) => {
@@ -27,47 +27,33 @@ export const actions: Actions = {
 				success: false
 			});
 
-		const name = getNameFromEmail(email as string);
+		const res = await fetch('/auth/sign-up', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email, password })
+		});
 
-		try {
-			const res = await fetch('/auth/sign-up', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name, email, password })
-			});
-
-			if (!res.ok) {
-				if (res.status === 409) {
-					return fail(409, {
-						target: 'email',
-						message: 'Email is already in use',
-						success: false
-					});
-				} else {
-					return fail(500, {
-						target: 'unknown',
-						message: 'Unknown error',
-						success: false
-					});
-				}
+		if (!res.ok) {
+			if (res.status === 409) {
+				return fail(409, {
+					target: 'email',
+					message: 'Email is already in use',
+					success: false
+				});
+			} else {
+				return fail(500, {
+					target: 'unknown',
+					message: 'Unknown error',
+					success: false
+				});
 			}
-
-			const pair: TokenPair = await res.json();
-
-			setTokenCookies(pair, cookies);
-
-			return {
-				success: true,
-				name
-			};
-		} catch (error) {
-			console.error('Error during registration:', error);
-			return fail(500, {
-				target: 'unknown',
-				message: 'Unknown error' + error,
-				success: false
-			});
 		}
+
+		const pair: TokenPair = await res.json();
+
+		setTokenCookies(pair, cookies);
+
+		redirect(302, '/read');
 	},
 
 	login: async ({ request, cookies, fetch }) => {
@@ -94,56 +80,35 @@ export const actions: Actions = {
 			});
 		}
 
-		try {
-			const res = await fetch('/auth/sign-in', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ email, password })
-			});
+		const res = await fetch('/auth/sign-in', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email, password })
+		});
 
-			if (!res.ok) {
-				if (res.status === 401) {
-					return fail(401, {
-						target: 'credentials',
-						message: 'Invalid email or password',
-						success: false
-					});
-				} else {
-					return fail(500, {
-						target: 'unknown',
-						message: 'Unknown error',
-						success: false
-					});
-				}
+		if (!res.ok) {
+			if (res.status === 401) {
+				return fail(401, {
+					target: 'credentials',
+					message: 'Invalid email or password',
+					success: false
+				});
+			} else {
+				return fail(500, {
+					target: 'unknown',
+					message: 'Unknown error',
+					success: false
+				});
 			}
-
-			const pair: TokenPair = await res.json();
-
-			setTokenCookies(pair, cookies);
-
-			const name = getNameFromEmail(email as string);
-
-			return {
-				success: true,
-				name
-			};
-		} catch (error) {
-			console.error('Error during login:', error);
-			return fail(500, {
-				target: 'unknown',
-				message: 'Unknown error' + error,
-				success: false
-			});
 		}
+
+		const pair: TokenPair = await res.json();
+
+		setTokenCookies(pair, cookies);
+
+		redirect(302, '/read');
 	}
 } satisfies Actions;
-
-function getNameFromEmail(email: string): string {
-	if (!email) return 'Guest';
-	const name = email.split('.')[0];
-
-	return name[0].toUpperCase() + name.slice(1);
-}
 
 function validateEmail(email: string | null | undefined): string | void {
 	if (!email) {

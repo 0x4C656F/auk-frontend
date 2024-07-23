@@ -44,10 +44,10 @@
 	}
 	button,
 	a {
-		@apply focus:outline-none rounded-full hover-intensify font-sans-serif;
+		@apply focus:outline-none rounded-full hover-intensify font-sans-serif flex items-center justify-center gap-2;
 	}
 	.sm {
-		@apply text-sm px-3 py-1;
+		@apply text-sm px-3 py-1.5;
 	}
 	.md {
 		@apply text-base px-4 py-2;

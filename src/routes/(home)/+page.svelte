@@ -1,8 +1,17 @@
 <script lang="ts">
 	import logo from '$lib/assets/auk.webp';
+	import SignInPopup from '$root/widgets/sign-in-popup';
+	import SignUpPopup from '$root/widgets/sign-up-popup';
 	import Button from '$shared/ui/Button.svelte';
+	import type { LayoutData } from '../$types';
+	import Footer from './ui/Footer.svelte';
+	import Header from './ui/Header.svelte';
+	export let data: LayoutData;
 </script>
 
+<SignUpPopup />
+<SignInPopup />
+<Header {data} />
 <main class="w-screen h-screen flex flex-col items-center justify-center max-w-screen-xl px-16">
 	<section class="flex w-full justify-between items-center">
 		<article class="flex-col flex gap-12">
@@ -16,17 +25,7 @@
 		</article>
 		<img alt="The AUK logo" src={logo} />
 	</section>
-	<footer class="fixed bottom-0 flex p-8 justify-center gap-8 w-full">
-		<a href="/">Help</a>
-		<a href="/">Status</a>
-		<a href="/">About</a>
-		<a href="/">Careers</a>
-		<a href="/">Press</a>
-		<a href="/">Blog</a>
-		<a href="/">Privacy</a>
-		<a href="/">Terms</a>
-		<a href="/">Teams</a>
-	</footer>
+	<Footer />
 </main>
 
 <style lang="postcss">

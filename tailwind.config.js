@@ -16,7 +16,8 @@ export default {
 				'text-light': '#FBFBFE',
 				secondary: '#EFDADA',
 				background: '#FBF8ED',
-				// background: '#000000',
+				'text-muted': '#646464',
+
 				accent: '#7DCBB2'
 			},
 			fontSize: {

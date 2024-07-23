@@ -7,7 +7,7 @@ export async function handleFetch({ event, request, fetch }) {
 
 	const path = parsePathFromUrl(request.url);
 	const url = SERVER_URL + path;
-	console.log(' URL:', url);
+	console.log(request.method + ' ' + url);
 
 	const c = event.cookies;
 	request = new Request(url, request);
@@ -50,6 +50,8 @@ export async function handleFetch({ event, request, fetch }) {
 			console.log('No refresh token found.');
 		}
 	}
+
+	request.headers.set('Content-Type', 'application/json');
 
 	console.log('Sending request to server...');
 	const response = await fetch(request);

@@ -38,7 +38,7 @@
 			<button class="close-button" on:click={signUpPopupController.toggle}>
 				<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
 			</button>
-			<h2 class="header">Join AUK-NEWS.</h2>
+			<h2 class="text-5xl font-serif">Join AUK-NEWS.</h2>
 			<form
 				method="POST"
 				action="/auth?/register"
@@ -88,16 +88,12 @@
 	}
 
 	.popup-container {
-		@apply h-screen w-1/2 rounded-lg z-50 relative flex items-center justify-center gap-20 bg-background flex-col font-sans-serif transition-all duration-300 bg-background;
+		@apply h-screen w-1/2 rounded-lg  relative flex items-center justify-center gap-20 flex-col font-sans-serif transition-all duration-300 bg-background;
 		box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
 	}
 
 	.close-button {
 		@apply w-8 h-8 absolute top-4 right-4;
-	}
-
-	.header {
-		@apply text-5xl font-serif;
 	}
 
 	form {
