@@ -1,9 +1,26 @@
-<script>
+<script lang="ts">
 	import Icon from '@iconify/svelte';
-	export let editor;
+	import type { Editor } from '@tiptap/core';
+	export let editor: Editor;
 </script>
 
 <div class="button-group">
+	<button
+		on:click={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+		disabled={!editor.can().chain().focus().toggleHeading({ level: 3 }).run()}
+		class:active={editor.isActive('h3')}
+		title="H2"
+	>
+		H2
+	</button>
+	<button
+		on:click={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+		disabled={!editor.can().chain().focus().toggleHeading({ level: 4 }).run()}
+		class:active={editor.isActive('h4')}
+		title="H3"
+	>
+		H3
+	</button>
 	<button
 		on:click={() => editor.chain().focus().toggleBold().run()}
 		disabled={!editor.can().chain().focus().toggleBold().run()}

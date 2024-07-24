@@ -1,14 +1,15 @@
-import type { Post } from '$root/lib/entities';
+import type { Post, PostWithAuthor } from '$root/lib/entities';
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad, PageServerLoadEvent } from './$types';
 
 export const load: PageServerLoad = async ({
 	params,
 	fetch
-}: PageServerLoadEvent): Promise<Post> => {
+}: PageServerLoadEvent): Promise<{ post: Post }> => {
 	const postId = params.postId;
 	const res = await fetch('/posts/' + postId);
-	return res.json();
+	const post: PostWithAuthor = await res.json();
+	return { post };
 };
 
 export const actions: Actions = {
@@ -18,7 +19,11 @@ export const actions: Actions = {
 		const heading = data.get('heading')?.toString();
 		const subheading = data.get('subheading')?.toString();
 		const content = data.get('content')?.toString();
-
+		const tags = data
+			.get('tags')
+			?.toString()
+			.split(',')
+			.map((tag) => tag.trim());
 		if (!heading || !subheading || !content) {
 			return fail(406, {
 				message: 'All fields must be present',
@@ -34,7 +39,8 @@ export const actions: Actions = {
 		const dto = {
 			heading,
 			subheading,
-			content
+			content,
+			tags
 		};
 		try {
 			const response = await fetch('/posts/' + +params.postId, {

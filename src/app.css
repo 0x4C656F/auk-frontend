@@ -16,4 +16,64 @@
 	.header {
 		@apply h-20 fixed flex z-20 font-sans-serif items-center justify-between w-screen max-w-screen-xl px-16;
 	}
+	.post-content {
+		> *:first-child {
+			@apply mt-0;
+		}
+
+		ul,
+		ol {
+			@apply pl-4 my-5 ml-1;
+
+			li p {
+				@apply my-1;
+			}
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			@apply leading-tight mt-10;
+		}
+
+		h3,
+		h4 {
+			@apply mt-8 mb-4;
+		}
+
+		h3 {
+			@apply text-2xl font-semibold;
+		}
+
+		h4 {
+			@apply text-xl font-semibold;
+		}
+
+		code {
+			@apply bg-purple-100 rounded text-black text-sm px-1 py-0.5;
+		}
+
+		pre {
+			@apply bg-black rounded-lg text-white font-mono my-6 p-3;
+
+			code {
+				@apply bg-transparent text-inherit text-xs p-0;
+			}
+		}
+
+		blockquote {
+			@apply border-l-4 border-gray-300 my-6 pl-4;
+		}
+
+		hr {
+			@apply border-none border-t border-gray-200 my-8;
+		}
+
+		strong {
+			@apply font-bold text-black;
+		}
+	}
 }

@@ -73,12 +73,6 @@
 				>
 			</article>
 		</div>
-		{#if form?.success}
-			<div class="success-message-box">
-				<h2>Welcome, {form.name}!</h2>
-				<p>You have successfully signed up.</p>
-			</div>
-		{/if}
 	</div>
 {/if}
 

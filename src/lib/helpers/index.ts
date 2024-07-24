@@ -50,3 +50,7 @@ export function updateFormData<T>(
 	const { data } = formResult as unknown as { data: T };
 	return data;
 }
+
+export function getWordCount(content: string): number {
+	return content.trim().split(/\s+/).length;
+}

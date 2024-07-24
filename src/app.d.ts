@@ -12,14 +12,6 @@ declare global {
 		interface Session {
 			token: string;
 		}
-
-		// used to thread information between plugins
-		interface Stuff {}
-
-		// used to pass one-off configuration for a request
-		interface Metadata {
-			doTheThing?: boolean | null;
-		}
 	}
 	declare namespace svelteHTML {
 		interface HTMLAttributes<T> {
