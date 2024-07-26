@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { clickOutside, updateFormData } from '$lib/helpers';
 	import { Button } from '$shared/ui';
 	import { quintOut } from 'svelte/easing';
@@ -18,8 +18,8 @@
 
 	$: {
 		if (form?.success) {
-			invalidateAll();
-			signInPopupController.toggle();
+			signUpPopupController.toggle();
+			goto('/read');
 		}
 	}
 </script>
@@ -28,11 +28,11 @@
 	<div transition:fade={{ duration: 300 }} class="overlay">
 		<div
 			use:clickOutside
-			on:click_outside={signInPopupController.toggle}
+			onclick_outside={signInPopupController.toggle}
 			transition:scale={{ duration: 500, opacity: 0, start: 0.4, easing: quintOut }}
 			class="popup-container"
 		>
-			<button class="close-button" on:click={signInPopupController.toggle}>
+			<button class="close-button" onclick={signInPopupController.toggle}>
 				<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
 			</button>
 			<h2 class=" text-5xl font-serif">Welcome back!</h2>
@@ -66,7 +66,7 @@
 			{/if}
 			<article class="signin-text">
 				Don't have an account yet? <button
-					on:click={togglePopups}
+					onclick={togglePopups}
 					class="signin-link hover-intensify">Sign up</button
 				>
 			</article>
@@ -74,7 +74,7 @@
 	</div>
 {/if}
 
-<style lang="scss">
+<style lang="postcss">
 	.overlay {
 		@apply fixed left-0 top-0 w-screen h-screen bg-opacity-90 z-50 bg-background flex items-center justify-center transition-all duration-300;
 	}

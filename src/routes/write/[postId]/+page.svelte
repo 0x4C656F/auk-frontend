@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import type { Tag } from '$root/lib/entities';
 	import { AukInsiderLogo, Button } from '$shared/ui';
+	import Icon from '@iconify/svelte';
 	import { Editor } from '@tiptap/core';
 	import { Color } from '@tiptap/extension-color';
 	import Heading from '@tiptap/extension-heading';
@@ -10,12 +12,14 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import ControlButtonGroup from './ui/ControlButtonGroup.svelte';
+	import HeadingInput from './ui/HeadingInput.svelte';
+	import SubheadingInput from './ui/SubheadingInput.svelte';
 	import TagSelector from './ui/TagSelector.svelte';
-	export let data: PageData;
 
+	export let data: PageData;
 	let element: Element;
 	let editor: Editor;
-	let form: HTMLFormElement;
+	let formElem: HTMLFormElement;
 	let content = '';
 	let heading = data.post.heading;
 	let subheading = data.post.subheading;
@@ -30,53 +34,65 @@
 				StarterKit,
 				Heading.configure({ levels: [3, 4] })
 			],
-
 			content: data.post.content,
-
 			onTransaction: (e) => {
 				content = e.editor.getHTML();
 				editor = editor;
 			}
 		});
+
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.ctrlKey && e.key === 's') {
+				e.preventDefault();
+				formElem.requestSubmit();
+			}
+		};
+
+		document.addEventListener('keydown', handleKeyDown);
+
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+		};
 	});
 </script>
 
 <header class="header">
 	<AukInsiderLogo></AukInsiderLogo>
 	<section class="flex gap-4">
-		<Button on:click={() => form.requestSubmit()}>Save</Button>
+		<Button on:click={() => formElem.requestSubmit()}>Save</Button>
 		{#if data.post.published}
 			<Button variant="ghost" href={`/read/${data.post.id}`}>View in posts</Button>
 		{:else}
 			<form method="post" action="?/publish">
-				<Button variant="ghost" type="submit">Publish</Button>
+				<Button variant="ghost" type="submit">Save & Publish</Button>
 			</form>
 		{/if}
 	</section>
 </header>
-
-<div class="flex mt-40 gap-16 mb-20 w-full max-w-screen-xl px-16">
+<div class="flex mt-40 gap-10 mb-20 w-full max-w-screen-xl px-16">
 	{#if editor}
 		<ControlButtonGroup {editor}></ControlButtonGroup>
 	{/if}
 
 	<form
 		action="?/save"
-		bind:this={form}
+		bind:this={formElem}
 		autocomplete="off"
+		use:enhance={() => {
+			return async ({ update }) => {
+				update({ reset: false });
+			};
+		}}
 		method="POST"
-		class="flex justify-between w-full gap-40"
+		class="flex justify-between w-full gap-20"
 	>
 		<div class="article-container">
-			<input type="text" name="heading" bind:value={heading} placeholder="Title" class="heading" />
-			<input
-				type="text"
-				autocomplete="off"
-				name="subheading"
-				bind:value={subheading}
-				placeholder="Subheading"
-				class="subheading"
-			/>
+			<div class="text-text-muted flex items-center p-1 gap-1">
+				<Icon icon="mdi:info" class="mb-1"></Icon>Hint: use ctrl+s to save
+			</div>
+			<HeadingInput bind:value={heading} />
+			<SubheadingInput bind:value={subheading} />
+
 			<input type="hidden" name="tags" bind:value={selectedTags} class="hidden" />
 			<input type="hidden" name="content" bind:value={content} class="hidden" />
 			<div bind:this={element} class="post-content"></div>
@@ -87,14 +103,7 @@
 
 <style lang="postcss" global>
 	.article-container {
-		@apply text-gray-900 outline-none max-w-screen-xl  gap-8 font-sans-serif flex-col flex  w-full;
-
-		input.heading {
-			@apply bg-background text-5xl font-heading font-semibold border-l-2 focus:outline-none border-transparent focus:border-secondary pl-2;
-		}
-		input.subheading {
-			@apply bg-background text-text/60 text-2xl font-heading  border-l-2 focus:outline-none border-transparent focus:border-secondary pl-2;
-		}
+		@apply text-text outline-none  gap-8 font-sans-serif flex-col flex  w-full;
 	}
 
 	:global(.tiptap) {

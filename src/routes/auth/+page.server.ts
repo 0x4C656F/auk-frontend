@@ -1,6 +1,6 @@
 import { setTokenCookies } from '$root/lib/helpers';
 import type { TokenPair } from '$root/lib/types';
-import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { fail, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	register: async ({ request, cookies, fetch }) => {
@@ -53,7 +53,10 @@ export const actions: Actions = {
 
 		setTokenCookies(pair, cookies);
 
-		redirect(302, '/read');
+		return {
+			success: true,
+			message: 'Account created'
+		};
 	},
 
 	login: async ({ request, cookies, fetch }) => {
@@ -106,7 +109,10 @@ export const actions: Actions = {
 
 		setTokenCookies(pair, cookies);
 
-		redirect(302, '/read');
+		return {
+			success: true,
+			message: 'Logged in'
+		};
 	}
 } satisfies Actions;
 

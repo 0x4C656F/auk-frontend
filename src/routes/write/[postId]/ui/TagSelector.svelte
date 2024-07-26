@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div class="flex flex-wrap flex-col gap-4 mt-4 max-w-lg">
+<div class="flex flex-wrap flex-col gap-4 mt-4 max-w-60 h-fit">
 	<h3 class="text-lg font-semibold flex gap-2 items-center">
 		<Icon icon="mdi:tag"></Icon>
 		<p>Tags</p>

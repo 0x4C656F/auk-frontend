@@ -61,15 +61,41 @@ export const actions: Actions = {
 			});
 		}
 	},
-	publish: async ({ fetch, params }) => {
+	publish: async ({ fetch, params, request }) => {
+		const data = await request.formData();
+
+		const heading = data.get('heading')?.toString();
+		const subheading = data.get('subheading')?.toString();
+		const content = data.get('content')?.toString();
+		const tags = data
+			.get('tags')
+			?.toString()
+			.split(',')
+			.map((tag) => tag.trim());
+		if (!heading || !subheading || !content) {
+			return fail(406, {
+				message: 'All fields must be present',
+				success: false
+			});
+		}
 		if (params.postId === undefined) {
 			return fail(406, {
 				message: 'Post ID must be present',
 				success: false
 			});
 		}
+		const dto = {
+			heading,
+			subheading,
+			content,
+			tags
+		};
 		try {
-			const response = await fetch('/posts/' + +params.postId + '/publish', {
+			await fetch('/posts/' + +params.postId, {
+				method: 'PATCH',
+				body: JSON.stringify(dto)
+			});
+			const response = await fetch('/posts/publish/' + +params.postId, {
 				method: 'PATCH'
 			});
 
@@ -85,5 +111,66 @@ export const actions: Actions = {
 				success: false
 			});
 		}
-	}
+	},
+	pin: async ({ fetch, params, request }) => {
+		if (params.postId === undefined) {
+			return fail(406, {
+				message: 'Post ID must be present',
+				success: false
+			});
+		}
+		try {
+			const formdata = await request.formData();
+			console.log('aaa');
+
+			const unpinAt = new Date(formdata.get('unpinAt')?.toString() as string).toISOString();
+
+			const response = await fetch('/posts/pin/' + +params.postId, {
+				method: 'PATCH',
+				body: JSON.stringify({ unpinAt })
+			});
+
+			if (response.ok) {
+				return {
+					message: 'Post pinned',
+					success: true,
+					action: 'pin'
+				};
+			}
+		} catch {
+			return fail(500, {
+				message: 'Unknown error',
+				success: false
+			});
+		}
+	},
+	unpin: async ({ fetch, params }) => {
+		console.log('me');
+		if (params.postId === undefined) {
+			return fail(406, {
+				message: 'Post ID must be present',
+				success: false
+			});
+		}
+		try {
+			const response = await fetch('/posts/unpin/' + +params.postId, {
+				method: 'PATCH'
+			});
+
+			if (response.ok) {
+				return {
+					message: 'Post unpinned',
+					action: 'unpin',
+					success: true
+				};
+			}
+		} catch {
+			return fail(500, {
+				message: 'Unknown error',
+
+				success: false
+			});
+		}
+	},
+	mock: () => {}
 };

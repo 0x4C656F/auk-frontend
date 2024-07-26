@@ -10,6 +10,7 @@
 		disabled={!editor.can().chain().focus().toggleHeading({ level: 3 }).run()}
 		class:active={editor.isActive('h3')}
 		title="H2"
+		class="text-sm"
 	>
 		H2
 	</button>
@@ -18,6 +19,7 @@
 		disabled={!editor.can().chain().focus().toggleHeading({ level: 4 }).run()}
 		class:active={editor.isActive('h4')}
 		title="H3"
+		class="text-sm"
 	>
 		H3
 	</button>
@@ -100,7 +102,7 @@
 	}
 
 	.button-group button {
-		@apply focus:outline-none bg-secondary transition-all text-text focus:ring-2 focus:bg-accent focus:ring-opacity-50 p-2 rounded-md hover:bg-secondary/80;
+		@apply focus:outline-none bg-secondary transition-all flex items-center justify-center size-8 text-text focus:ring-2 focus:bg-accent focus:ring-opacity-50 p-2 rounded-md hover:bg-secondary/80;
 	}
 	.button-group button:disabled {
 		@apply cursor-auto bg-secondary/50;

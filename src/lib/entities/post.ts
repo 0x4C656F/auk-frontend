@@ -1,3 +1,4 @@
+import type { Pin } from './pin';
 import type { User } from './user';
 
 export type Post = {
@@ -8,6 +9,7 @@ export type Post = {
 	authorId: number;
 	published: boolean;
 	tags: Tag[];
+	pin?: Pin;
 	createdAt: Date;
 	updatedAt: Date;
 };

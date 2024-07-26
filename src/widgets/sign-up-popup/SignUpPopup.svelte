@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { clickOutside, updateFormData } from '$lib/helpers';
 	import { Button } from '$shared/ui';
 	import { quintOut } from 'svelte/easing';
@@ -18,11 +18,9 @@
 	let form: ActionData;
 
 	$: {
-		console.table(form);
 		if (form?.success) {
 			signUpPopupController.toggle();
-
-			invalidateAll();
+			goto('/read');
 		}
 	}
 </script>
@@ -31,11 +29,11 @@
 	<div transition:fade={{ duration: 300 }} class="overlay">
 		<div
 			use:clickOutside
-			on:click_outside={signUpPopupController.toggle}
+			onclick_outside={signUpPopupController.toggle}
 			transition:scale={{ duration: 500, opacity: 0, start: 0.4, easing: quintOut }}
 			class="popup-container"
 		>
-			<button class="close-button" on:click={signUpPopupController.toggle}>
+			<button class="close-button" onclick={signUpPopupController.toggle}>
 				<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
 			</button>
 			<h2 class="text-5xl font-serif">Join AUK-NEWS.</h2>
@@ -68,7 +66,7 @@
 				{/if}
 			</form>
 			<article class="signin-text">
-				Already have an account? <button on:click={togglePopups} class="signin-link hover-intensify"
+				Already have an account? <button onclick={togglePopups} class="signin-link hover-intensify"
 					>Sign in</button
 				>
 			</article>
@@ -116,17 +114,5 @@
 
 	.signin-text button {
 		@apply text-red-500;
-	}
-
-	.success-message-box {
-		@apply absolute right-8 bottom-8 z-50 border-2 space-y-2 rounded-md bg-text/5 p-4;
-	}
-
-	.success-message-box h2 {
-		@apply text-lg font-semibold;
-	}
-
-	.success-message-box p {
-		@apply text-base font-light;
 	}
 </style>

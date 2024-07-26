@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AukInsiderLogo, Button } from '$shared/ui';
+	import { Button } from '$shared/ui';
 	import Icon from '@iconify/svelte';
 	import { formatDistanceToNow } from 'date-fns';
 	import TagDisplay from '../ui/TagDisplay.svelte';
@@ -20,12 +20,11 @@
 	<title>{post.heading} | Auk Insider</title>
 </svelte:head>
 
-<header class="header">
-	<AukInsiderLogo />
-	<Button href="/read" variant="ghost"><Icon icon="mdi:arrow-left"></Icon>Back to posts</Button>
-</header>
-
 <main class="mt-16 max-w-screen-md mx-auto px-4 py-8 font-sans-serif">
+	<div class="w-full flex">
+		<Button href="/read" variant="ghost"><Icon icon="mdi:arrow-left"></Icon>Go back</Button>
+	</div>
+
 	<article class="prose lg:prose-xl flex flex-col gap-4">
 		<TagDisplay tags={post.tags} />
 
