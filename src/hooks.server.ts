@@ -5,7 +5,8 @@ config();
 
 export async function handleFetch({ event, request, fetch }) {
 	const path = parsePathFromUrl(request.url);
-	const SERVER_URL = process.env.SERVER_URL;
+	const SERVER_URL = process.env.BACKEND_URL;
+	console.log('SERVER_URL:', SERVER_URL);
 	const url = SERVER_URL + path;
 	console.log(`======== ${request.method + ' ' + path} ========`);
 
