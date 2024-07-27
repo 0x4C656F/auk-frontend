@@ -19,11 +19,14 @@ export const actions: Actions = {
 		const heading = data.get('heading')?.toString();
 		const subheading = data.get('subheading')?.toString();
 		const content = data.get('content')?.toString();
-		const tags = data
+		let tags = data
 			.get('tags')
 			?.toString()
 			.split(',')
 			.map((tag) => tag.trim());
+		if (tags && tags[0] === '') {
+			tags = [];
+		}
 		if (!heading || !subheading || !content) {
 			return fail(406, {
 				message: 'All fields must be present',
@@ -61,40 +64,15 @@ export const actions: Actions = {
 			});
 		}
 	},
-	publish: async ({ fetch, params, request }) => {
-		const data = await request.formData();
-
-		const heading = data.get('heading')?.toString();
-		const subheading = data.get('subheading')?.toString();
-		const content = data.get('content')?.toString();
-		const tags = data
-			.get('tags')
-			?.toString()
-			.split(',')
-			.map((tag) => tag.trim());
-		if (!heading || !subheading || !content) {
-			return fail(406, {
-				message: 'All fields must be present',
-				success: false
-			});
-		}
+	publish: async ({ fetch, params }) => {
 		if (params.postId === undefined) {
 			return fail(406, {
 				message: 'Post ID must be present',
 				success: false
 			});
 		}
-		const dto = {
-			heading,
-			subheading,
-			content,
-			tags
-		};
+
 		try {
-			await fetch('/posts/' + +params.postId, {
-				method: 'PATCH',
-				body: JSON.stringify(dto)
-			});
 			const response = await fetch('/posts/publish/' + +params.postId, {
 				method: 'PATCH'
 			});

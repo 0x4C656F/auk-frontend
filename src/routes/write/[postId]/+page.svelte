@@ -19,7 +19,8 @@
 	export let data: PageData;
 	let element: Element;
 	let editor: Editor;
-	let formElem: HTMLFormElement;
+	let saveForm: HTMLFormElement;
+	let publishForm: HTMLFormElement;
 	let content = '';
 	let heading = data.post.heading;
 	let subheading = data.post.subheading;
@@ -44,7 +45,7 @@
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (e.ctrlKey && e.key === 's') {
 				e.preventDefault();
-				formElem.requestSubmit();
+				saveForm.requestSubmit();
 			}
 		};
 
@@ -54,17 +55,24 @@
 			document.removeEventListener('keydown', handleKeyDown);
 		};
 	});
+
+	function saveAndPublish() {
+		saveForm.requestSubmit();
+		setTimeout(() => {
+			publishForm.requestSubmit();
+		}, 200);
+	}
 </script>
 
 <header class="header">
 	<AukInsiderLogo></AukInsiderLogo>
 	<section class="flex gap-4">
-		<Button on:click={() => formElem.requestSubmit()}>Save</Button>
+		<Button on:click={() => saveForm.requestSubmit()}>Save</Button>
 		{#if data.post.published}
 			<Button variant="ghost" href={`/read/${data.post.id}`}>View in posts</Button>
 		{:else}
-			<form method="post" action="?/publish">
-				<Button variant="ghost" type="submit">Save & Publish</Button>
+			<form method="post" use:enhance bind:this={publishForm} action="?/publish">
+				<Button variant="ghost" on:click={saveAndPublish}>Save & Publish</Button>
 			</form>
 		{/if}
 	</section>
@@ -76,7 +84,7 @@
 
 	<form
 		action="?/save"
-		bind:this={formElem}
+		bind:this={saveForm}
 		autocomplete="off"
 		use:enhance={() => {
 			return async ({ update }) => {
