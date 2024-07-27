@@ -1,9 +1,11 @@
-import { SERVER_URL } from '$env/static/private';
+import { config } from 'dotenv';
 import { setTokenCookies } from './lib/helpers';
 import type { TokenPair } from './lib/types';
+config();
 
 export async function handleFetch({ event, request, fetch }) {
 	const path = parsePathFromUrl(request.url);
+	const SERVER_URL = process.env.SERVER_URL;
 	const url = SERVER_URL + path;
 	console.log(`======== ${request.method + ' ' + path} ========`);
 
