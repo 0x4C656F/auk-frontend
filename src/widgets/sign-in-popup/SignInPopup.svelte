@@ -32,9 +32,11 @@
 			transition:scale={{ duration: 500, opacity: 0, start: 0.4, easing: quintOut }}
 			class="popup-container"
 		>
-			<button class="close-button" onclick={signInPopupController.toggle}>
-				<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
-			</button>
+			<div class="w-full h-fit absolute top-0 flex items-center justify-end">
+				<button class="close-button" onclick={signInPopupController.toggle}>
+					<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
+				</button>
+			</div>
 			<h2 class=" text-5xl font-serif">Welcome back!</h2>
 			<form
 				method="POST"
@@ -80,12 +82,12 @@
 	}
 
 	.popup-container {
-		@apply h-screen w-1/2 rounded-lg z-50  flex items-center justify-center gap-20 flex-col bg-background font-sans-serif transition-all duration-300;
+		@apply h-screen w-1/2 rounded-lg  relative flex items-center justify-center gap-20 flex-col font-sans-serif transition-all duration-300 bg-background;
 		box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
 	}
 
 	.close-button {
-		@apply w-8 h-8 absolute top-4 right-4;
+		@apply size-8;
 	}
 
 	form {

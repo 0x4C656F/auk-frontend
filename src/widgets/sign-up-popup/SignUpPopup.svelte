@@ -33,10 +33,13 @@
 			transition:scale={{ duration: 500, opacity: 0, start: 0.4, easing: quintOut }}
 			class="popup-container"
 		>
-			<button class="close-button" onclick={signUpPopupController.toggle}>
-				<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
-			</button>
-			<h2 class="text-5xl font-serif">Join AUK-NEWS.</h2>
+			<div class="w-full h-fit absolute top-0 flex items-center justify-end">
+				<button class="close-button" onclick={signUpPopupController.toggle}>
+					<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
+				</button>
+			</div>
+
+			<h2 class="text-5xl font-serif">Join AUK Insider.</h2>
 			<form
 				method="POST"
 				action="/auth?/register"
@@ -85,7 +88,7 @@
 	}
 
 	.close-button {
-		@apply w-8 h-8 absolute top-4 right-4;
+		@apply size-8;
 	}
 
 	form {
