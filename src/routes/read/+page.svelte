@@ -24,15 +24,15 @@
 		</form>
 	</section>
 </header>
-<main class="w-screen max-w-screen-xl font-sans-serif px-16 my-40">
-	<div class="flex gap-8">
-		<div class="w-1/2 flex-col flex mt-16 gap-6">
+<main class="w-screen max-w-screen-xl font-sans-serif px-6 lg:px-16 my-40">
+	<div class="lg:flex-row flex gap-8 flex-col-reverse">
+		<div class="w-full lg:w-1/2 flex-col flex mt-16 gap-6">
 			<h2 class="text-2xl font-bold mb-4">Latest Posts</h2>
 			{#each regularPosts() as post (post.id)}
 				<Post {post} canPin={data.user?.role != Role.STUDENT} />
 			{/each}
 		</div>
-		<div class="w-1/2 flex-col flex mt-16 gap-6">
+		<div class="w-full lg:w-1/2 flex-col flex mt-16 gap-6">
 			<div class="bg-secondary p-4 rounded-lg mb-4 relative">
 				<Icon class="absolute top-1 right-1 text-text size-5" icon="mdi:info"></Icon>
 				<h2 class="text-2xl font-bold mb-2">Pinned Posts</h2>

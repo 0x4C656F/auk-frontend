@@ -14,7 +14,7 @@
 
 @layer components {
 	.header {
-		@apply h-20 fixed flex z-20 font-sans-serif items-center justify-between w-screen max-w-screen-xl px-16;
+		@apply h-20 fixed flex z-20 font-sans-serif items-center justify-between w-screen max-w-screen-xl md:px-8 px-6 xl:px-16;
 	}
 	.post-content {
 		> *:first-child {

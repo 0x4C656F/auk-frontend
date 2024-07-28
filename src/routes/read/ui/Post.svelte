@@ -13,17 +13,17 @@
 	{#if post.author.role === Role.TEACHER}
 		<div class="absolute bottom-0 bg-gradient-to-t from-secondary w-full h-10 blur-xl"></div>
 	{/if}
-	<div class="flex justify-between">
-		<div class="flex items-center gap-2 text-sm text-text-muted">
+	<div class="flex justify-between text-xs">
+		<div class="flex items-center gap-2 text-text-muted">
 			<div class="size-5 rounded-full bg-secondary"></div>
-			<p>{post.author.fullname}</p>
+			<p class="whitespace-nowrap">{post.author.fullname}</p>
 			<span>·</span>
-			<p>{formatDistanceToNow(new Date(post.createdAt))} ago</p>
+			<p class="whitespace-nowrap">{formatDistanceToNow(new Date(post.createdAt))} ago</p>
 			<span>·</span>
-			<p>{getWordCount(post.content)} words</p>
+			<p class="whitespace-nowrap">{getWordCount(post.content)} words</p>
 			{#if post.pin && post.pin.unpinAt}
-				<span>·</span>
-				<p>pinned until {format(new Date(post.pin.unpinAt), 'MMM d')}</p>
+				<span class="max-md:hidden">·</span>
+				<p class="max-md:hidden">pinned until {format(new Date(post.pin.unpinAt), 'MMM d')}</p>
 			{/if}
 		</div>
 		{#if canPin}

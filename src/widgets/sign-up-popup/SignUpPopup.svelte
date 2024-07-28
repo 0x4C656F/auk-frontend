@@ -33,7 +33,7 @@
 			transition:scale={{ duration: 500, opacity: 0, start: 0.4, easing: quintOut }}
 			class="popup-container"
 		>
-			<div class="w-full h-fit absolute top-0 flex items-center justify-end">
+			<div class="w-full h-fit absolute top-0 flex items-center justify-endb">
 				<button class="close-button" onclick={signUpPopupController.toggle}>
 					<MaterialSymbolsLightClose scale="2" color="black" class="w-full h-full" />
 				</button>

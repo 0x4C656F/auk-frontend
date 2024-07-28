@@ -9,3 +9,12 @@
 	<a href="/">Terms</a>
 	<a href="/">Teams</a>
 </footer>
+
+<style lang="postcss">
+	footer a {
+		@apply text-text/70 hover:underline transition-colors duration-300;
+	}
+	footer {
+		@apply max-md:hidden;
+	}
+</style>

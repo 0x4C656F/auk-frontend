@@ -47,13 +47,19 @@
 		@apply focus:outline-none rounded-full hover-intensify font-sans-serif flex items-center justify-center gap-2;
 	}
 	.sm {
-		@apply text-sm px-3 py-1.5;
+		@apply text-xs px-2 py-1 
+               sm:text-sm sm:px-3 sm:py-1.5 
+               md:text-sm md:px-3 md:py-2;
 	}
 	.md {
-		@apply text-base px-4 py-2;
+		@apply text-sm px-3 py-1.5 
+               sm:text-base sm:px-4 sm:py-2 
+               md:text-base md:px-5 md:py-2.5;
 	}
 	.lg {
-		@apply text-lg px-6 py-3;
+		@apply text-base px-4 py-2 
+               sm:text-lg sm:px-5 sm:py-2.5 
+               md:text-xl md:px-6 md:py-3;
 	}
 	.primary {
 		@apply text-text-light bg-primary;
