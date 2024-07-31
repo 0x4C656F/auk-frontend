@@ -1,7 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+import daisyui from 'daisyui';
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
+	daisyui: {
+		themes: ['retro']
+	},
 	theme: {
 		extend: {
 			fontFamily: {
@@ -10,21 +14,12 @@ export default {
 				sans: 'noto sans, Noto Sans Georgian Variable, sans',
 				heading: 'Playfair Display Variable, serif'
 			},
-			colors: {
-				primary: '#d01822',
-				text: '#1B0809',
-				'text-light': '#FBFBFE',
-				secondary: '#EFDADA',
-				background: '#FBF8ED',
-				'text-muted': '#646464',
 
-				accent: '#7DCBB2'
-			},
 			fontSize: {
 				'scalable-lg': '0.9vw',
 				'scalable-xl': '1.6vw'
 			}
 		}
 	},
-	plugins: []
+	plugins: [daisyui]
 };

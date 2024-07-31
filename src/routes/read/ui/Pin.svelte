@@ -5,6 +5,7 @@
 	import Icon from '@iconify/svelte';
 	import { quintOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
+
 	const { post }: { post: Post } = $props();
 
 	let showOptions = $state(false);
@@ -42,13 +43,13 @@
 		onmouseleave={() => (hovering = false)}
 		onclick={() => (post.pin ? formElem.requestSubmit() : (showOptions = !showOptions))}
 		type="button"
-		class="text-text-muted focus:outline-none flex items-center p-1 h-8 relative"
+		class=" text-base-content focus:outline-none flex items-center p-1 h-8 relative"
 	>
-		<div class="transition-all duration-300 ease-out" class:translate-x-[-8px]={hovering}>
+		<div class="transition-transform duration-300 ease-out" class:translate-x-[-8px]={hovering}>
 			<Icon icon={post.pin ? 'mdi:pin' : 'mdi:pin-outline'} class="w-5 h-5" />
 		</div>
 		<div
-			class="absolute left-6 transition-all duration-300 ease-out overflow-hidden whitespace-nowrap"
+			class="absolute left-6 transition-all duration-300 ease-out whitespace-nowrap"
 			class:not-hovering={!hovering}
 			class:hovering
 		>
@@ -60,12 +61,12 @@
 			use:clickOutside
 			onclick_outside={() => (showOptions = false)}
 			transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
-			class="absolute z-10 mt-2 bg-secondary border rounded-md shadow-lg p-2 w-32"
+			class="absolute z-10 mt-2 bg-base-200 border border-base-300 rounded-md shadow-lg p-2 w-32"
 		>
 			{#each durations as duration}
 				<button
 					onclick={() => setDuration(duration.value)}
-					class="block w-full text-left px-2 py-1 text-sm transition-all hover:bg-background rounded"
+					class="block w-full text-left px-2 py-1 text-sm transition-colors hover:bg-base-300 rounded"
 				>
 					{duration.label}
 				</button>

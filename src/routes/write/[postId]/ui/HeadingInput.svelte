@@ -20,6 +20,6 @@
 	oninput={autoResize}
 	name="heading"
 	placeholder="Title"
-	class="bg-background text-5xl font-heading font-semibold border-l-2 border-transparent focus:border-secondary pl-2 w-full resize-none overflow-hidden bg-transparent focus:outline-none"
+	class="textarea text-5xl font-bold font-serif pl-2 w-full resize-none overflow-hidden"
 	rows="1"
 ></textarea>

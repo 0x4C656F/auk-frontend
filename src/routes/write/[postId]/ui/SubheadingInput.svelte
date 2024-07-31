@@ -21,6 +21,6 @@
 	name="subheading"
 	placeholder="Subheading"
 	autocomplete="off"
-	class="w-full resize-none overflow-hidden bg-background text-text/60 text-2xl font-heading border-l-2 focus:outline-none border-transparent focus:border-secondary pl-2"
+	class="textarea w-full resize-none overflow-hidden text-base-content/60 text-2xl font-serif focus:outline-none pl-2"
 	rows="1"
 ></textarea>

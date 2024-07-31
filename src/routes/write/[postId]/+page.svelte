@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { Tag } from '$root/lib/entities';
-	import { AukInsiderLogo, Button } from '$shared/ui';
+	import { AukInsiderLogo } from '$shared/ui';
 	import Icon from '@iconify/svelte';
 	import { Editor } from '@tiptap/core';
 	import { Color } from '@tiptap/extension-color';
@@ -65,21 +65,32 @@
 </script>
 
 <header class="header">
-	<AukInsiderLogo></AukInsiderLogo>
+	<AukInsiderLogo />
 	<section class="flex gap-4">
-		<Button on:click={() => saveForm.requestSubmit()}>Save</Button>
+		<div class="hidden md:block">
+			<button class="btn btn-primary" on:click={() => saveForm.requestSubmit()}>Save</button>
+		</div>
 		{#if data.post.published}
-			<Button variant="ghost" href={`/read/${data.post.id}`}>View in posts</Button>
+			<a href={`/read/${data.post.id}`} class="btn btn-ghost">
+				<Icon icon="mdi:eye" class="mr-2" />
+				View in posts
+			</a>
 		{:else}
 			<form method="post" use:enhance bind:this={publishForm} action="?/publish">
-				<Button variant="ghost" on:click={saveAndPublish}>Save & Publish</Button>
+				<button class="btn btn-ghost" on:click={saveAndPublish}>
+					<Icon icon="mdi:publish" class="mr-2" />
+					Save & Publish
+				</button>
 			</form>
 		{/if}
 	</section>
 </header>
-<div class="flex mt-40 gap-10 mb-20 w-full max-w-screen-xl px-16">
+
+<div
+	class="flex flex-col md:flex-row mt-40 gap-10 mb-20 w-full max-w-screen-xl px-4 md:px-8 xl:px-16"
+>
 	{#if editor}
-		<ControlButtonGroup {editor}></ControlButtonGroup>
+		<ControlButtonGroup {editor} />
 	{/if}
 
 	<form
@@ -92,11 +103,12 @@
 			};
 		}}
 		method="POST"
-		class="flex justify-between w-full gap-20"
+		class="flex flex-col md:flex-row w-full gap-20"
 	>
-		<div class="article-container">
-			<div class="text-text-muted flex items-center p-1 gap-1">
-				<Icon icon="mdi:info" class="mb-1"></Icon>Hint: use ctrl+s to save
+		<div class="flex flex-col gap-8 w-full">
+			<div class="text-sm text-base-content font-sans-serif flex items-center p-1 gap-1">
+				<Icon icon="mdi:information-outline" />
+				<span>Hint: use ctrl+s to save</span>
 			</div>
 			<HeadingInput bind:value={heading} />
 			<SubheadingInput bind:value={subheading} />
@@ -104,6 +116,11 @@
 			<input type="hidden" name="tags" bind:value={selectedTags} class="hidden" />
 			<input type="hidden" name="content" bind:value={content} class="hidden" />
 			<div bind:this={element} class="post-content"></div>
+			<div class="md:hidden pl-2">
+				<button class="btn btn-outline btn-primary" on:click={() => saveForm.requestSubmit()}>
+					Save
+				</button>
+			</div>
 		</div>
 		<TagSelector bind:selectedTags />
 	</form>
@@ -111,7 +128,7 @@
 
 <style lang="postcss" global>
 	.article-container {
-		@apply text-text outline-none  gap-8 font-sans-serif flex-col flex  w-full;
+		@apply outline-none  gap-8 font-sans-serif flex-col flex  w-full;
 	}
 
 	:global(.tiptap) {

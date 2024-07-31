@@ -25,7 +25,7 @@
 		}
 
 		p {
-			@apply text-sm text-text-muted  mb-2 transition-all duration-[350ms] break-words;
+			@apply text-sm text-base-content/50  mb-2 transition-all duration-[350ms] break-words;
 		}
 
 		div {

@@ -13,20 +13,16 @@
 	}
 </script>
 
-<div class="flex flex-wrap flex-col gap-4 mt-4 max-w-60 h-fit">
+<div class="flex flex-col gap-4 mt-4 max-w-md h-fit">
 	<h3 class="text-lg font-semibold flex gap-2 items-center">
-		<Icon icon="mdi:tag"></Icon>
+		<Icon icon="mdi:tag" class="text-xl" />
 		<p>Tags</p>
 	</h3>
 	<section class="flex flex-wrap gap-2">
 		{#each tags as tag}
 			<button
 				type="button"
-				class={`px-3 py-1 h-fit rounded-full text-sm font-medium ${
-					selectedTags.includes(tag)
-						? 'bg-primary text-white'
-						: 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-				}`}
+				class={`btn btn-sm ${selectedTags.includes(tag) ? 'btn-primary' : 'btn-secondary text-gray-700 hover:bg-gray-300'}`}
 				on:click={() => toggleTag(tag)}
 			>
 				{tag}

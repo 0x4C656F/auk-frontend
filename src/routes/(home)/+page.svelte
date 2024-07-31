@@ -2,7 +2,6 @@
 	import logo from '$lib/assets/auk.webp';
 	import SignInPopup from '$root/widgets/sign-in-popup';
 	import SignUpPopup, { signUpPopupController } from '$root/widgets/sign-up-popup';
-	import Button from '$shared/ui/Button.svelte';
 	import type { LayoutData } from '../$types';
 	import Footer from './ui/Footer.svelte';
 	import Header from './ui/Header.svelte';
@@ -12,36 +11,24 @@
 <SignUpPopup />
 <SignInPopup />
 <Header {data} />
-<main
-	class="w-screen h-screen flex flex-col items-center justify-center max-w-screen-xl px-6 xl:px-16"
->
-	<section class="flex w-full justify-between items-center">
-		<article class="flex-col flex gap-6 xl:gap-12">
-			<h1 class=" 2xl:text-7xl xl:text-6xl md:text-5xl text-4xl font-serif font-semibold">
-				<span class="2xl:text-8xl xl:text-7xl md:text-6xl text-5xl">N</span>ews, stories & campus
-				events
+<main class="container max-w-screen-xl mx-auto px-4 py-8 min-h-screen flex flex-col justify-center">
+	<section class="flex flex-col md:flex-row justify-between items-center">
+		<article class="flex flex-col gap-6 md:w-1/2">
+			<h1 class="font-serif font-bold text-4xl md:text-5xl lg:text-6xl">
+				<span class="text-5xl md:text-6xl lg:text-7xl">N</span>ews, stories & campus events
 			</h1>
-			<h2 class="xl:text-2xl lg:text-xl md:text-lg text-base font-serif">
+			<h2 class="font-serif text-base md:text-lg lg:text-xl">
 				Your Hub for Insight and Inspiration
 			</h2>
 			{#if data.user}
-				<Button href="/read" class="w-fit px-8" size="lg">Start reading</Button>
+				<a href="/read" class="btn btn-primary w-fit">Start reading</a>
 			{:else}
-				<Button on:click={signUpPopupController.toggle} class="w-fit px-8" size="lg"
-					>Get started</Button
+				<button on:click={signUpPopupController.toggle} class="btn btn-primary btn-md w-fit"
+					>Get started</button
 				>
 			{/if}
 		</article>
-		<img class="max-md:hidden max-lg:w-1/2" alt="The AUK logo" src={logo} />
+		<img class="hidden md:block md:w-1/2 lg:w-auto" alt="The AUK logo" src={logo} />
 	</section>
 	<Footer />
 </main>
-
-<style lang="postcss">
-	footer a {
-		@apply text-text/70 hover:underline transition-colors duration-300;
-	}
-	footer {
-		@apply max-md:hidden;
-	}
-</style>

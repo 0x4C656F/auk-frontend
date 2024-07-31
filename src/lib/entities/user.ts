@@ -5,7 +5,10 @@ export type User = {
 	email: string;
 	name: string;
 	fullname: string;
+	followerIds: number[];
 	role: Role;
+	bio?: string;
+	avatar?: string;
 	pins: Pin[];
 	createdAt: Date;
 	updatedAt: Date;

@@ -54,3 +54,12 @@ export function updateFormData<T>(
 export function getWordCount(content: string): number {
 	return content.trim().split(/\s+/).length;
 }
+
+/// Initials parser
+export function getInitials(fullname: string): string {
+	return fullname
+		.split(' ')
+		.map((name) => name[0])
+		.join('')
+		.toUpperCase();
+}

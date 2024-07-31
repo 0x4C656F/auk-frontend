@@ -99,7 +99,6 @@ export const actions: Actions = {
 		}
 		try {
 			const formdata = await request.formData();
-			console.log('aaa');
 
 			const unpinAt = new Date(formdata.get('unpinAt')?.toString() as string).toISOString();
 
@@ -123,7 +122,6 @@ export const actions: Actions = {
 		}
 	},
 	unpin: async ({ fetch, params }) => {
-		console.log('me');
 		if (params.postId === undefined) {
 			return fail(406, {
 				message: 'Post ID must be present',

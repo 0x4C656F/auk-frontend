@@ -1,19 +1,16 @@
-<footer class="fixed bottom-0 flex p-8 justify-center gap-8 w-full">
-	<a href="/">Help</a>
-	<a href="/">Status</a>
-	<a href="/">About</a>
-	<a href="/">Careers</a>
-	<a href="/">Press</a>
-	<a href="/">Blog</a>
-	<a href="/">Privacy</a>
-	<a href="/">Terms</a>
-	<a href="/">Teams</a>
+<footer class="fixed bottom-0 flex p-8 justify-center gap-8 w-full bg-base-100 shadow-md">
+	<a href="/" class="link link-hover text-base-content/70">Help</a>
+	<a href="/" class="link link-hover text-base-content/70">Status</a>
+	<a href="/" class="link link-hover text-base-content/70">About</a>
+	<a href="/" class="link link-hover text-base-content/70">Careers</a>
+	<a href="/" class="link link-hover text-base-content/70">Press</a>
+	<a href="/" class="link link-hover text-base-content/70">Blog</a>
+	<a href="/" class="link link-hover text-base-content/70">Privacy</a>
+	<a href="/" class="link link-hover text-base-content/70">Terms</a>
+	<a href="/" class="link link-hover text-base-content/70">Teams</a>
 </footer>
 
 <style lang="postcss">
-	footer a {
-		@apply text-text/70 hover:underline transition-colors duration-300;
-	}
 	footer {
 		@apply max-md:hidden;
 	}

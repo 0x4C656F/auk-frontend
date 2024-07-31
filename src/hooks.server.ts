@@ -6,10 +6,9 @@ config();
 export async function handleFetch({ event, request, fetch }) {
 	const path = parsePathFromUrl(request.url);
 	const SERVER_URL = process.env.BACKEND_URL;
-	console.log('SERVER_URL:', SERVER_URL);
 	const url = SERVER_URL + path;
-	console.log(`======== ${request.method + ' ' + path} ========`);
 
+	console.log(`======== ${request.method + ' ' + path} ========`);
 	const c = event.cookies;
 	request = new Request(url, request);
 
@@ -56,6 +55,7 @@ export async function handleFetch({ event, request, fetch }) {
 
 function parsePathFromUrl(url: string) {
 	const [, ...path] = url.slice(9).split('/');
+	console.log('this is the path:', path);
 	const parsedPath = '/' + path.join('/');
 	console.log('Parsed path:', parsedPath);
 	return parsedPath;
