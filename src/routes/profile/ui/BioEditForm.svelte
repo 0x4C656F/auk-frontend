@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { clickOutside } from '$root/lib/helpers';
-	import UploadAvatarForm from '$root/widgets/upload-avatar-form/UploadAvatarForm.svelte';
 	import Icon from '@iconify/svelte';
 
 	export let currentBio: string = '';
@@ -13,16 +12,6 @@
 		newBio = currentBio;
 		isOpen = false;
 	}
-
-	function handleClose() {
-		if (newBio !== currentBio) {
-			if (confirm('You have unsaved changes. Are you sure you want to close?')) {
-				isOpen = false;
-			}
-		} else {
-			isOpen = false;
-		}
-	}
 </script>
 
 {#if isOpen}
@@ -30,7 +19,7 @@
 		<div
 			use:clickOutside
 			onclick_outside={() => (isOpen = false)}
-			class="bg-base-100 p-6 rounded-lg shadow-xl flex flex-col w-fit"
+			class="bg-base-100 p-6 rounded-lg max-w-md w-full shadow-xl flex flex-col"
 		>
 			<h3 class="text-xl font-semibold mb-4">Edit Bio</h3>
 			<form
@@ -57,10 +46,6 @@
 					</button>
 				</div>
 			</form>
-			<UploadAvatarForm {userId} />
-			<button class="absolute top-2 right-2 btn btn-sm btn-circle btn-ghost" onclick={handleClose}>
-				✕
-			</button>
 		</div>
 	</div>
 {/if}

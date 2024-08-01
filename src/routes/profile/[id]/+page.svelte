@@ -4,8 +4,9 @@
 	import Post from '$root/routes/read/ui/Post.svelte';
 	import { AukInsiderLogo } from '$shared/ui';
 	import Icon from '@iconify/svelte';
-	import BioEdit from '../ui/BioEdit.svelte';
+	import BioEditForm from '../ui/BioEditForm.svelte';
 	import type { PageData } from './$types';
+	import ProfilePicEditForm from './ui/ProfilePicEditForm.svelte';
 
 	export let data: PageData;
 
@@ -22,7 +23,7 @@
 	<header class="bg-base-100 shadow-md p-4">
 		<div class="container mx-auto flex justify-between items-center">
 			<AukInsiderLogo />
-			<a href="/read" class="btn btn-secondary">
+			<a href="/read" class="btn btn-secondary btn-ghost">
 				<Icon icon="mdi:arrow-left" class="mr-2" />
 				Back
 			</a>
@@ -34,19 +35,26 @@
 			<div class="flex flex-col md:flex-row gap-8">
 				<section class="md:w-1/3">
 					<div class="flex flex-col items-center">
-						{#if data.viewedUser.avatar}
-							<img
-								src={data.viewedUser.avatar}
-								alt={data.viewedUser.fullname}
-								class="w-48 h-48 rounded-full object-cover mb-4"
-							/>
-						{:else}
-							<div
-								class={`w-48 h-48 rounded-full flex items-center justify-center text-4xl font-bold text-white ${getRandomColor()} mb-4`}
-							>
-								{getInitials(data.viewedUser.fullname)}
+						<div class="w-fit relative mb-4">
+							<div class="right-0 bottom-0 absolute z-10">
+								{#if data.user?.id === data.viewedUser.id}
+									<ProfilePicEditForm userId={data.user.id} />
+								{/if}
 							</div>
-						{/if}
+							{#if data.viewedUser.avatar}
+								<img
+									src={data.viewedUser.avatar}
+									alt={data.viewedUser.fullname}
+									class="w-48 h-48 rounded-full object-cover mb-4"
+								/>
+							{:else}
+								<div
+									class={`w-48 h-48 rounded-full flex items-center justify-center text-4xl font-bold text-white ${getRandomColor()} mb-4`}
+								>
+									{getInitials(data.viewedUser.fullname)}
+								</div>
+							{/if}
+						</div>
 						<h2 class="text-3xl font-semibold text-base-content mb-2">
 							{data.viewedUser.fullname}
 						</h2>
@@ -67,7 +75,7 @@
 									Follow
 								</a>
 							{:else}
-								<button class="btn btn-primary" on:click={() => (isEditBioOpen = true)}>
+								<button class="btn btn-primary btn-md" on:click={() => (isEditBioOpen = true)}>
 									<Icon icon="mdi:account-edit" class="mr-2" />
 									Edit profile
 								</button>
@@ -95,7 +103,7 @@
 	</main>
 </div>
 
-<BioEdit
+<BioEditForm
 	userId={data.viewedUser.id}
 	currentBio={data.viewedUser.bio || ''}
 	bind:isOpen={isEditBioOpen}

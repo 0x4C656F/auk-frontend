@@ -3,12 +3,11 @@
 	import type { PageData } from './$types';
 	import MyPost from './ui/MyPost.svelte';
 
-	export let data: PageData;
+	const { data }: { data: PageData } = $props();
+	const drafts = $derived(() => data.posts.filter((post) => !post.published));
+	const published = $derived(() => data.posts.filter((post) => post.published));
 
-	$: drafts = data.posts.filter((post) => !post.published);
-	$: published = data.posts.filter((post) => post.published);
-
-	let activeTab = 'drafts';
+	let activeTab = $state('drafts');
 </script>
 
 <div class="max-w-2xl mx-auto px-4 py-8 mt-40 min-w-[450px]">
@@ -29,30 +28,30 @@
 			class="px-4 py-2 text-sm font-medium {activeTab === 'drafts'
 				? 'border-b-2 border-primary text-primary'
 				: 'text-base-content'}"
-			on:click={() => (activeTab = 'drafts')}
+			onclick={() => (activeTab = 'drafts')}
 		>
-			Drafts {drafts.length}
+			<p>Drafts {drafts().length}</p>
 		</button>
 		<button
 			class="px-4 py-2 text-sm font-medium {activeTab === 'published'
 				? 'border-b-2 border-primary text-primary'
 				: 'text-base-content'}"
-			on:click={() => (activeTab = 'published')}
+			onclick={() => (activeTab = 'published')}
 		>
-			Published {published.length}
+			<p>Published {published().length}</p>
 		</button>
 		<button class="px-4 py-2 text-sm font-medium text-base-content">Responses</button>
 	</div>
 
 	{#if activeTab === 'drafts'}
 		<ul class="flex flex-col gap-6">
-			{#each drafts as post}
+			{#each drafts() as post}
 				<MyPost {post} />
 			{/each}
 		</ul>
 	{:else if activeTab === 'published'}
 		<ul class="flex flex-col gap-6">
-			{#each published as post}
+			{#each published() as post}
 				<MyPost {post} />
 			{/each}
 		</ul>

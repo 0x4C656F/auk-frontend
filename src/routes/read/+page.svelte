@@ -36,10 +36,10 @@
 			{/each}
 		</div>
 		<div class="w-full lg:w-1/2 flex-col flex mt-16 gap-6">
-			<div class="bg-secondary p-4 rounded-lg mb-4 relative">
-				<Icon class="absolute top-1 right-1 text-base-content size-5" icon="mdi:info"></Icon>
+			<div class="bg-accent p-4 rounded-lg mb-4 relative">
+				<Icon class="absolute top-1 right-1 text-accent-content size-5" icon="mdi:info"></Icon>
 				<h2 class="text-2xl font-bold mb-2">Pinned Posts</h2>
-				<p class="text-sm text-base-content/70">Important posts from teachers and developers</p>
+				<p class="text-sm text-accent-content/70">Important posts from teachers and developers</p>
 			</div>
 			{#if pinnedPosts().length === 0}
 				<p class="text-base-content/70">No pinned posts yet</p>
