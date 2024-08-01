@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { clickOutside } from '$root/lib/helpers';
+	import UploadAvatarForm from '$root/widgets/upload-avatar-form/UploadAvatarForm.svelte';
 	import Icon from '@iconify/svelte';
 
 	export let currentBio: string = '';
@@ -29,7 +30,7 @@
 		<div
 			use:clickOutside
 			onclick_outside={() => (isOpen = false)}
-			class="bg-base-100 p-6 rounded-lg shadow-xl w-full max-w-md"
+			class="bg-base-100 p-6 rounded-lg shadow-xl flex flex-col w-fit"
 		>
 			<h3 class="text-xl font-semibold mb-4">Edit Bio</h3>
 			<form
@@ -37,6 +38,7 @@
 				action={`/profile/${userId}?/updateBio`}
 				use:enhance
 				onsubmit={() => (isOpen = false)}
+				class="min-w-[300px] flex flex-col space-y-4"
 			>
 				<textarea
 					name="bio"
@@ -55,6 +57,7 @@
 					</button>
 				</div>
 			</form>
+			<UploadAvatarForm {userId} />
 			<button class="absolute top-2 right-2 btn btn-sm btn-circle btn-ghost" onclick={handleClose}>
 				✕
 			</button>

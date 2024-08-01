@@ -10,7 +10,7 @@
 	class="btn btn-circle border-secondary transition-colors hover:bg-secondary"
 >
 	{#if user.avatar}
-		<img src={user.avatar} alt={user.name} class="rounded-full" />
+		<img src={user.avatar} alt={user.name} class="rounded-full w-full h-full object-cover" />
 	{:else}
 		<span class="text-base-content">{getInitials(user.fullname)}</span>
 	{/if}

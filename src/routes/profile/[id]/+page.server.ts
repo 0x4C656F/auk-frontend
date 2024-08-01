@@ -1,11 +1,12 @@
 import type { PostWithAuthor, User } from '$root/lib/entities';
+import { fail } from '@sveltejs/kit';
+import { config } from 'dotenv';
+import nodeFetch from 'node-fetch';
 import type { Actions, PageServerLoad } from './$types';
-
 export const load: PageServerLoad = async ({
 	fetch,
 	params
 }): Promise<{ viewedUser: User; posts: PostWithAuthor[] }> => {
-	console.log('fetching load');
 	const id = +params.id;
 	const userRequest = await fetch(`/users/${id}`);
 	const postsRequests = await fetch(`/posts/author/${id}`);
@@ -22,7 +23,6 @@ export const actions: Actions = {
 
 		try {
 			// await updateUserBio(locals.user.id, bio);
-			console.log('Updating bio:', bio);
 			await fetch('/users/bio', {
 				method: 'PATCH',
 				body: JSON.stringify({ bio })
@@ -31,6 +31,35 @@ export const actions: Actions = {
 		} catch (error) {
 			console.error('Error updating bio:', error);
 			return { error: 'Failed to update bio. Please try again.' };
+		}
+	},
+	avatar: async ({ request, cookies }) => {
+		try {
+			const formData = await request.formData();
+			const image = formData.get('image') as File;
+
+			if (!image) {
+				return fail(400, { error: 'No image provided' });
+			}
+
+			const body = new FormData();
+			body.append('image', image);
+			config();
+			const response = await nodeFetch(`${process.env.BACKEND_URL}/images/upload`, {
+				method: 'POST',
+				body,
+				headers: {
+					Authorization: `Bearer ${cookies.get('_at')}`
+				}
+			});
+
+			if (!response.ok) {
+				console.error('Failed to upload image:', response.status, await response.text());
+				return fail(response.status, { error: 'Failed to upload image' });
+			}
+		} catch (error) {
+			console.error('Error uploading image:', error);
+			return fail(500, { error: 'Internal server error' });
 		}
 	}
 };

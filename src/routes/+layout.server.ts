@@ -4,7 +4,6 @@ export const load: LayoutServerLoad = async ({ fetch }) => {
 	try {
 		const response = await fetch('/users/me');
 		const user: User = await response.json();
-		console.log(user.role);
 
 		if (user.id) {
 			return { user };

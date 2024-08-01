@@ -22,7 +22,17 @@
 	<div class="flex justify-between text-xs text-base-content">
 		<div class="flex items-center gap-2">
 			<a href={`/profile/${post.author.id}`} class="flex items-center gap-2 group">
-				<div class="avatar avatar-sm bg-secondary"></div>
+				<div class="size-6">
+					{#if post.author.avatar}
+						<img
+							src={post.author.avatar}
+							alt={post.author.fullname}
+							class="rounded-full w-full h-full object-cover"
+						/>
+					{:else}
+						<div class="avatar avatar-sm bg-secondary"></div>
+					{/if}
+				</div>
 				<p class="whitespace-nowrap group-hover:underline underline-offset-2 decoration-primary">
 					{post.author.fullname}
 				</p>
