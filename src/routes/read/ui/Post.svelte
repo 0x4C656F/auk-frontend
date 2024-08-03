@@ -17,7 +17,9 @@
 	class:border-primary={post.author.role === Role.TEACHER}
 >
 	{#if post.author.role === Role.TEACHER}
-		<div class="absolute bottom-0 bg-gradient-to-t from-secondary w-full h-10 blur-xl"></div>
+		<div
+			class="absolute bottom-0 bg-gradient-to-t from-secondary w-full h-10 blur-xl opacity-50"
+		></div>
 	{/if}
 	<div class="flex justify-between text-xs text-base-content">
 		<div class="flex items-center gap-2">
