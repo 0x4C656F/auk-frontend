@@ -74,7 +74,7 @@
 						class="input input-bordered w-full max-w-xs"
 					/>
 				</section>
-				{#if form?.target === 'unknown'}
+				{#if form?.message}
 					<p class="text-error">{form.message}</p>
 				{/if}
 				<button type="submit" class="btn btn-primary w-full max-w-xs mt-2">Sign in</button>

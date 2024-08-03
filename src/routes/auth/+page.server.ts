@@ -90,8 +90,8 @@ export const actions: Actions = {
 		});
 
 		if (!res.ok) {
-			if (res.status === 401) {
-				return fail(401, {
+			if (res.status === 404) {
+				return fail(404, {
 					target: 'credentials',
 					message: 'Invalid email or password',
 					success: false
