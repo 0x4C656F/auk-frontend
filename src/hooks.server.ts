@@ -8,7 +8,7 @@ export async function handleFetch({ event, request, fetch }) {
 	const SERVER_URL = process.env.BACKEND_URL;
 	const url = SERVER_URL + path;
 
-	console.log(`======== ${request.method + ' ' + path} ========`);
+	console.log(`======== ${request.method + ' ' + url} ========`);
 	const c = event.cookies;
 	request = new Request(url, request);
 
@@ -48,7 +48,7 @@ export async function handleFetch({ event, request, fetch }) {
 
 	const response = await fetch(request);
 
-	console.log('Response received. Status:', response.status);
+	console.log(`Response for ${path} received. Status:`, response.status);
 
 	return response;
 }
