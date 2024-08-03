@@ -10,6 +10,7 @@
 		} else {
 			selectedTags = [...selectedTags, tag];
 		}
+		return () => {};
 	}
 </script>
 
@@ -22,8 +23,9 @@
 		{#each tags as tag}
 			<button
 				type="button"
-				class={`btn btn-sm ${selectedTags.includes(tag) ? 'btn-primary' : 'btn-secondary text-gray-700 hover:bg-gray-300'}`}
-				on:click={() => toggleTag(tag)}
+				class:btn-primary={selectedTags.includes(tag)}
+				class={'btn btn-sm'}
+				onclick={toggleTag(tag)}
 			>
 				{tag}
 			</button>
