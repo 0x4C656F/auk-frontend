@@ -55,8 +55,6 @@ export async function handleFetch({ event, request, fetch }) {
 
 function parsePathFromUrl(url: string) {
 	const [, ...path] = url.slice(9).split('/');
-	console.log('this is the path:', path);
 	const parsedPath = '/' + path.join('/');
-	console.log('Parsed path:', parsedPath);
 	return parsedPath;
 }

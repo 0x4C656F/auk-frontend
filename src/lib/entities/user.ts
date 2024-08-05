@@ -1,4 +1,5 @@
 import type { Pin } from './pin';
+import type { Program } from './post';
 
 export type User = {
 	id: number;
@@ -7,6 +8,7 @@ export type User = {
 	fullname: string;
 	followerIds: number[];
 	role: Role;
+	program: Program;
 	bio?: string;
 	avatar?: string;
 	pins: Pin[];

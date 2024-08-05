@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { Tag } from '$root/lib/entities';
+	import type { Program, Tag } from '$root/lib/entities';
 	import { AukInsiderLogo } from '$shared/ui';
 	import Icon from '@iconify/svelte';
 	import { Editor } from '@tiptap/core';
@@ -13,10 +13,12 @@
 	import type { PageData } from './$types';
 	import ControlButtonGroup from './ui/ControlButtonGroup.svelte';
 	import HeadingInput from './ui/HeadingInput.svelte';
+	import ProgramSelector from './ui/ProgramSelector.svelte';
 	import SubheadingInput from './ui/SubheadingInput.svelte';
 	import TagSelector from './ui/TagSelector.svelte';
 
 	export let data: PageData;
+
 	let element: Element;
 	let editor: Editor;
 	let saveForm: HTMLFormElement;
@@ -25,6 +27,7 @@
 	let heading = data.post.heading;
 	let subheading = data.post.subheading;
 	let selectedTags: Tag[] = data.post.tags;
+	let selectedPrograms: Program[] = data.post.relatedPrograms;
 
 	onMount(() => {
 		editor = new Editor({
@@ -114,6 +117,8 @@
 			<SubheadingInput bind:value={subheading} />
 
 			<input type="hidden" name="tags" bind:value={selectedTags} class="hidden" />
+			<input type="hidden" name="programs" bind:value={selectedPrograms} class="hidden" />
+
 			<input type="hidden" name="content" bind:value={content} class="hidden" />
 			<div bind:this={element} class="post-content"></div>
 			<div class="md:hidden pl-2">
@@ -122,7 +127,10 @@
 				</button>
 			</div>
 		</div>
-		<TagSelector bind:selectedTags />
+		<div class="flex flex-col gap-8">
+			<TagSelector bind:selectedTags />
+			<ProgramSelector bind:selectedPrograms />
+		</div>
 	</form>
 </div>
 

@@ -24,6 +24,16 @@ export const actions: Actions = {
 			?.toString()
 			.split(',')
 			.map((tag) => tag.trim());
+
+		let relatedPrograms = data
+			.get('programs')
+			?.toString()
+			.split(',')
+			.map((program) => program.trim());
+		console.log(relatedPrograms);
+		if (relatedPrograms && relatedPrograms[0] === '') {
+			relatedPrograms = [];
+		}
 		if (tags && tags[0] === '') {
 			tags = [];
 		}
@@ -43,7 +53,8 @@ export const actions: Actions = {
 			heading,
 			subheading,
 			content,
-			tags
+			tags,
+			relatedPrograms
 		};
 		try {
 			const response = await fetch('/posts/' + +params.postId, {

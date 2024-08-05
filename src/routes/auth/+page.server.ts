@@ -1,9 +1,75 @@
+import { Role } from '$root/lib/entities';
 import { setTokenCookies } from '$root/lib/helpers';
 import type { TokenPair } from '$root/lib/types';
 import { fail, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
-	register: async ({ request, cookies, fetch }) => {
+	'register-student': async ({ request, cookies, fetch }) => {
+		const formData = await request.formData();
+
+		const email = formData.get('email')?.toString();
+
+		const password = formData.get('password')?.toString();
+
+		const program = formData.get('program')?.toString();
+
+		const emailError = validateEmail(email);
+
+		if (emailError) {
+			return fail(422, {
+				success: false,
+				message: emailError,
+				target: 'email'
+			});
+		}
+
+		if (!password)
+			return fail(422, {
+				target: 'password',
+				message: 'Password is required',
+				success: false
+			});
+
+		if (!program) {
+			return fail(422, {
+				target: 'program',
+				message: 'Program is required',
+				success: false
+			});
+		}
+
+		const res = await fetch('/auth/sign-up', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email, password, program, role: Role.STUDENT })
+		});
+
+		if (!res.ok) {
+			if (res.status === 409) {
+				return fail(409, {
+					target: 'email',
+					message: 'Email is already in use',
+					success: false
+				});
+			} else {
+				return fail(500, {
+					target: 'unknown',
+					message: 'Unknown error',
+					success: false
+				});
+			}
+		}
+
+		const pair: TokenPair = await res.json();
+
+		setTokenCookies(pair, cookies);
+
+		return {
+			success: true,
+			message: 'Account created'
+		};
+	},
+	'register-teacher': async ({ request, cookies, fetch }) => {
 		const formData = await request.formData();
 
 		const email = formData.get('email')?.toString();
@@ -30,7 +96,7 @@ export const actions: Actions = {
 		const res = await fetch('/auth/sign-up', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email, password })
+			body: JSON.stringify({ email, password, role: Role.TEACHER })
 		});
 
 		if (!res.ok) {

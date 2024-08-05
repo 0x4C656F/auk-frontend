@@ -79,3 +79,54 @@ body {
 		}
 	}
 }
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #888 #f1f1f1;
+}
+
+body {
+	-ms-overflow-style: none;
+}
+
+.scrollable-content {
+	overflow: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #888 #f1f1f1;
+}
+
+.scrollable-content::-webkit-scrollbar {
+	width: 8px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
