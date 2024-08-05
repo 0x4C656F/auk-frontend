@@ -106,7 +106,7 @@
 
 <style lang="postcss">
 	.btn-group {
-		@apply flex flex-col max-md:flex-row gap-4;
+		@apply flex flex-col max-md:flex-row flex-wrap gap-4;
 	}
 
 	.btn-group button {
