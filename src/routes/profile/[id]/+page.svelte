@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { Role } from '$root/lib/entities';
 	import { getInitials } from '$root/lib/helpers';
 	import Post from '$root/routes/read/ui/Post.svelte';
@@ -58,7 +59,9 @@
 						<h2 class="text-3xl font-semibold text-base-content mb-2">
 							{data.viewedUser.fullname}
 						</h2>
-						<p class="text-lg text-base-content mb-4">@{data.viewedUser.name}</p>
+						{#if data.viewedUser.role === Role.STUDENT}
+							<p class="text-lg text-base-content mb-4">Student on {data.viewedUser.program}</p>
+						{/if}
 						<div class="flex items-center text-base-content mb-4">
 							<Icon icon="mdi:account-group" class="mr-2" />
 							<span>{data.viewedUser.followerIds.length} followers</span>
@@ -70,10 +73,12 @@
 						{/if}
 						<div class="flex gap-4">
 							{#if data.user?.id !== data.viewedUser.id}
-								<a href="/" class="btn btn-primary">
-									<Icon icon="mdi:account-plus" class="mr-2" />
-									Follow
-								</a>
+								<form use:enhance method="POST" action="?/follow">
+									<button disabled class="btn btn-primary">
+										<Icon icon="mdi:account-plus" class="mr-2" />
+										Follow
+									</button>
+								</form>
 							{:else}
 								<button class="btn btn-primary btn-md" on:click={() => (isEditBioOpen = true)}>
 									<Icon icon="mdi:account-edit" class="mr-2" />

@@ -61,5 +61,15 @@ export const actions: Actions = {
 			console.error('Error uploading image:', error);
 			return fail(500, { error: 'Internal server error' });
 		}
+	},
+	follow: async ({ fetch, params }) => {
+		const id = +params.id;
+		try {
+			await fetch(`/users/follow/${id}`, { method: 'POST' });
+			return { success: true };
+		} catch (error) {
+			console.error('Error following user:', error);
+			return { error: 'Failed to follow user. Please try again.' };
+		}
 	}
 };
