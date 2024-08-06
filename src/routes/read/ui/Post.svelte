@@ -32,7 +32,7 @@
 							class="rounded-full w-full h-full object-cover"
 						/>
 					{:else}
-						<div class="avatar avatar-sm bg-secondary"></div>
+						<div class="avatar avatar-sm bg-accent w-full h-full rounded-full"></div>
 					{/if}
 				</div>
 				<p class="whitespace-nowrap group-hover:underline underline-offset-2 decoration-primary">
